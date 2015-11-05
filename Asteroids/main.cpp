@@ -15,7 +15,7 @@
     As well as the demo program available on the course webpage.
  */
 
-#define NUM_ASTEROIDS 6
+#define MAX_NUM_ASTEROIDS 6
 #define Z_LEVEL -14.0f
 using namespace std;
 
@@ -32,6 +32,7 @@ void update(int value);
 void initAsteroidList(AsteroidList* asteroids);
 
 //The angle to increment the object by
+int num_asteroids = 1;
 float __angle = 30.0f;
 Asteroid* referenceRoid;
 AsteroidList* asteroids;
@@ -54,7 +55,7 @@ int main(int argc, char** argv)
 	glutInitWindowSize(800, 800);
 
 	//Create a window
-	glutCreateWindow("Derek Batts - CSC 461 - Assignment 2");
+	glutCreateWindow("Derek Batts - CSC 461 - Assignment 4");
 	initLighting();
 	//Initialize rendering
 	initRendering();
@@ -181,6 +182,8 @@ void update(int value)
 	//Check for no asteroids
 	if (asteroids->size == 0){
 		//Reset game
+		if(num_asteroids < MAX_NUM_ASTEROIDS)
+			num_asteroids++;
 		initAsteroidList(asteroids);
 		p->positionVector[X_] = PLAYER_INIT_POSX;
 		p->positionVector[Y_] = PLAYER_INIT_POSY;
@@ -492,7 +495,7 @@ void initLighting()
 void initAsteroidList(AsteroidList* list)
 {
 	//Loop through the whole array
-	for (int i = 0; i < NUM_ASTEROIDS; i++){
+	for (int i = 0; i < num_asteroids; i++){
 		//Create an asteroid
 		Asteroid* a = initAsteroid();
 
@@ -518,7 +521,7 @@ void initAsteroidList(AsteroidList* list)
 			for (vel = 0.0f; (vel < -0.06f) || (vel > 0.06f) || (vel == 0.0f) || (vel == -0.0f); vel = (float)1 / (10 + (25 + rand() % 100)));
 			
 			//Alternal direction
-			if (i < (NUM_ASTEROIDS / 2))
+			if (i < (num_asteroids / 2))
 				a->vVector[j] = vel;
 			else
 				a->vVector[j] = -vel;

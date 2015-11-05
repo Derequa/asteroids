@@ -111,8 +111,10 @@ void handleCollideAsteroidShot(AsteroidList* asteroidList, Asteroid* asteroid, M
 void handleCollideAsteroidShip(AsteroidList* asteroidList, Asteroid* asteroid, PlayerShip* ship, ExplosionList* eList)
 {
 	//Explosion
-	Explosion* newExp = makeExplosion(ship->positionVector[X_], ship->positionVector[Y_], ship->positionVector[Z_]);
-	addExplosion(newExp, eList);
+	Explosion* newExp1 = makeExplosion(ship->positionVector[X_], ship->positionVector[Y_], ship->positionVector[Z_]);
+	addExplosion(newExp1, eList);
+	Explosion* newExp2 = makeExplosion(asteroid->positionVector[X_], asteroid->positionVector[Y_], asteroid->positionVector[Z_]);
+	addExplosion(newExp2, eList);
 	//Split or remove asteroid
 	splitOrRemove(asteroidList, asteroid, NULL);
 	//Reset player
